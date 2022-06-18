@@ -1,1 +1,0 @@
-const {Pharmacy} = require('../models/Pharmacy.model');

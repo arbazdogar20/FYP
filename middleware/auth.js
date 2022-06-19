@@ -17,7 +17,7 @@ const isLoggedIn = (req,res,next) => {
 const restrictUser = (...roles) => {
     return (req,res,next) => {
         if(!roles.includes(req.user.role)){
-            return res.status(404).json("Error");
+            return res.status(401).json("You Are Not Admin");
         }
         next();
     }

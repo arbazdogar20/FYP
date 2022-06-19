@@ -6,7 +6,7 @@ const router = require('../routes/auth.route');
 // Registeration
 const register = async(req,res,next) => {
     const checkPharmacy = await Pharmacy.findOne(req.params.pharmacyName);
-    if(!checkPharmacy) return res.status(409).json({message: "Pharmacy Already Exist"});
+    if(checkPharmacy) return res.status(409).json({message: "Pharmacy Already Exist"});
 
     try {
         const pharmacy = new Pharmacy({
@@ -41,12 +41,42 @@ const login = async (req,res,next) => {
             process.env.JWT_SECRET,
             {expiresIn: "2d"}
         );
-        res.status(200).json({pharmacy,accessToken});
+        const {password,...others} = pharmacy._doc;
+        res.status(200).json({...others,accessToken});
     } catch (err) {
         next(err)
     }
 }
 
-// CREATE
+// DELETE PHARMACY
+const deletePharmacy = async (req,res,next) => {
+    try {
+        const pharmacy = await Pharmacy.findById(req.params.id);
+        if(!pharmacy) return res.status(404).json({message: "Pharmacy Not Found"});
+        await Pharmacy.findOneAndDelete(req.params.id);
+        res.status(200).json({message:"Pharmacy Deleted Successfully"});
+    } catch (err) {
+        next(err)
+    }
+}
 
-module.exports = {register,login};
+// UPDATE PHARMACY
+const updatePharmacy = async (req,res,next) => {
+    try {
+        const pharmacy = await Pharmacy.findById(req.params.id);
+        if(!pharmacy) return res.status(404).json({message: "Pharmacy Not Found"});
+        if(req.body.password) {
+            req.body.password = CryptoJS.AES.encrypt(req.body.password,process.env.PASS_SECRET).toString()
+        }
+        const updatePharmacy = await Pharmacy.findByIdAndUpdate(req.params.id,{
+            $set: req.body
+        },
+            {new: true}
+        );
+        res.status(200).json(updatePharmacy);
+    } catch (err) {
+        next(err);
+    }
+}
+
+module.exports = {register,login,deletePharmacy,updatePharmacy};

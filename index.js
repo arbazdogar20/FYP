@@ -17,8 +17,7 @@ const PORT = process.env.SERVER_PORT || 5000;
 
 // Routes
 app.use('/api/auth',authRoute);
-app.use('/api/product',productRouter);
-app.use('/api/medicine',medicineRouter);
+app.use('/api/pharmacy/medicine',medicineRouter);
 app.use('/api/pharmacy',pharmacyRouter);
 
 // Error Caught Middleware

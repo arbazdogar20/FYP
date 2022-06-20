@@ -5,10 +5,10 @@ const router = require('../routes/auth.route');
 
 // Registeration
 const register = async(req,res,next) => {
-    const checkPharmacy = await Pharmacy.findOne(req.params.pharmacyName);
-    if(checkPharmacy) return res.status(409).json({message: "Pharmacy Already Exist"});
-
     try {
+        const checkPharmacy = await Pharmacy.findOne({pharmacyName :req.body.pharmacyName});
+        if(checkPharmacy) return res.status(409).json({message: "Pharmacy Already Exist"});
+
         const pharmacy = new Pharmacy({
             pharmacyName: req.body.pharmacyName,
             email: req.body.email,
@@ -79,4 +79,26 @@ const updatePharmacy = async (req,res,next) => {
     }
 }
 
-module.exports = {register,login,deletePharmacy,updatePharmacy};
+// GET ONE
+const getPharmacy = async (req,res,next) => {
+    try {
+        const pharmacy = await Pharmacy.findById(req.params.id);
+        if(!pharmacy) return res.status(404).json({message: "Pharmacy Not Found"});
+        res.status(200).json(pharmacy);
+    } catch (err) {
+        next(err);
+    }
+}
+
+// GET ALL PHARMACY
+const getAllPharmacy = async (req,res,next) => {
+    try {
+        const pharmacy = await Pharmacy.find();
+        if(!pharmacy) return res.status(404).json({message: "Pharmacies Not FOund"});
+        res.status(200).json(pharmacy);
+    } catch (err) {
+        next(err);
+    }
+}
+
+module.exports = {register,login,deletePharmacy,updatePharmacy,getAllPharmacy,getPharmacy};

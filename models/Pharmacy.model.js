@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const joi = require('joi');
+const joiPassword = require('joi-password-complexity');
 
 const PharmacySchema = new mongoose.Schema({
     pharmacyName: {
@@ -10,14 +11,15 @@ const PharmacySchema = new mongoose.Schema({
     email:{
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        lowercase: true
     },
     phoneNumber:{
         type: String,
         required: true,
         unique: true
     },
-    ownerName:{
+    owner:{
         type: String,
         required: true
     },
@@ -25,6 +27,18 @@ const PharmacySchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true
+    },
+    image:{
+        type: String,
+        default: "sdfjkfjsdjhk"
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    role: {
+        type: String,
+        default: "pharmacy"
     }
 },
     {timestamps: true}
@@ -37,8 +51,11 @@ const validate = (data) => {
         pharmacyName: joi.string().required().label("Pharmacy Name"),
         email: joi.string().required().label('Pharmacy Email'),
         phoneNumber: joi.string().required().label('Pharmacy Contact Number'),
-        ownerName: joi.string().required().label('Pharmacy Owner Name'),
-        pharmacyLocation: joi.string().required().label('Pharmacy Location')
+        owner: joi.string().required().label('Pharmacy Owner Name'),
+        pharmacyLocation: joi.string().required().label('Pharmacy Location'),
+        image: joi.string().label("Pharmacy Image"),
+        password: joiPassword().required().label("Pharmacy Password"),
+        role: joi.string().label("role")
     });
     return schema.validate(data);
 }

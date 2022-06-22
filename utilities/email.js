@@ -7,12 +7,12 @@ const email = async(to,subject,text) => {
         service:process.env.SERVICES,
         secure:true,
         auth:{
-            user:process.env.EMIAL,
+            user:process.env.EMAIL,
             pass:process.env.PASSWORD
         }
     });
     const mailOption = {
-        from: process.env.EMIAL,
+        from: process.env.EMAIL,
         to:to,
         subject:subject,
         text:text

@@ -1,0 +1,35 @@
+.setting {
+    flex: 4;
+    padding: 20px;
+    margin-top: 30px;
+}
+
+.ttw {
+    margin-top: 20px;
+}
+
+.danger {
+    margin-top: 20px;
+    background-color: #d41e1e;
+    border-left: 6px solid #3bdb7e;
+    color: white;
+    width: 220px;
+}
+
+.success {
+    margin-top: 20px;
+    background-color: #24dae0;
+    border-left: 6px solid #38af69;
+    width: 220px;
+}
+
+.fv {
+    font-size: 12px;
+    padding: 3px;
+    color: red;
+    display: none;
+  }
+
+input:invalid ~ span{
+    display: block;
+}

@@ -1,0 +1,22 @@
+/* button {
+    display: none;
+}
+
+input:not(:placeholder-shown) + button {
+    display: block;
+}
+
+input:invalid {
+    animation: shake 300ms;
+}
+@keyframes shake {
+    25% {transform: translateX(4px);}
+    50% {transform: translateY(-4px);}
+    75% {transform: translateX(4px);}
+} */
+
+
+.btn:disabled {
+    cursor: not-allowed;
+    background-color: brown;
+}

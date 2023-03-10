@@ -1,0 +1,67 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.newProduct {
+  flex: 4;
+  margin-left: 20px;
+}
+
+.addProductForm {
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+.addProductItem {
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.addProductItem > label {
+  color: gray;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.addProductItem > input {
+  padding: 10px;
+}
+
+.addProductItem > select {
+  padding: 10px;
+}
+
+.addProductButton {
+  margin-top: 10px;
+  padding: 7px 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: darkblue;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.writeImg {
+  margin-right: 10px;
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  object-fit: cover;   
+}
+
+.fv {
+  font-size: 12px;
+  padding: 3px;
+  color: red;
+  display: none;
+}
+
+input:invalid ~ span{
+  display: block;
+}
